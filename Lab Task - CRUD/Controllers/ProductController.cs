@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using Lab_Task___CRUD.Models;
 using Lab_Task___CRUD.Models.Entity;
 using System.Windows;
+using System.Web.Script.Serialization;
 
 namespace Lab_Task___CRUD.Controllers
 {
@@ -15,11 +16,8 @@ namespace Lab_Task___CRUD.Controllers
         // GET
         // : Product
         Database db = new Database();
-        public ActionResult Cart()
-        {
-           
-            return View();
-        }
+        
+        
         public ActionResult List()
         {
             
@@ -71,6 +69,36 @@ namespace Lab_Task___CRUD.Controllers
             db.Products.Delete(id);
             return RedirectToAction("List");
         }
+       
+        public ActionResult Cart(int id)
+        {
+            List<Product> cartProducts = null;
+            Database db = new Database();
+
+            var SoloProduct = db.Products.GetProduct(id);
+            if (Session["cart"] == null)
+            {
+                cartProducts = new List<Product>();
+
+                cartProducts.Add(SoloProduct);
+                string cart = new JavaScriptSerializer().Serialize(cartProducts);
+                Session["cart"] = cart;
+                
+            }
+            else
+            {
+                var previousCart = Session["cart"].ToString();
+                cartProducts = new JavaScriptSerializer().Deserialize<List<Product>>(previousCart);
+                cartProducts.Add(SoloProduct);
+                string cart = new JavaScriptSerializer().Serialize(cartProducts);
+                Session["cart"] = cart;
+               
+            }
+            return View(cartProducts);
+
+        }
+        
+
 
 
 

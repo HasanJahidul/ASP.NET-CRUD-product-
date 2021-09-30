@@ -17,5 +17,10 @@ namespace Lab_Task___CRUD.Models.Entity
         public int Price { get; set; }
         public string Quantity { get; set; }
         public string Description { get; set; }
+        public int CartQuantity
+        {
+            get;
+            set;
+        }
     }
 }

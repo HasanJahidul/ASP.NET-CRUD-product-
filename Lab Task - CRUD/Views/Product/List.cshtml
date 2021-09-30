@@ -4,7 +4,7 @@
 
 <h2>List</h2>
 <a href="/product/create" class="btn btn-primary">Add Product</a>
-<a href="/product/cart" class="btn btn-warning">Add Product</a>
+<a href="/product/cart" class="btn btn-warning">Show Cart</a>
 
 <table class="table table-bordered">
     <tr>
@@ -25,7 +25,7 @@
     <td>@P.Description</td>
     <td><a href="/product/edit/@P.Id" class="btn btn-success">Edit</a>
         <a href="/Product/Delete/@P.Id"class="btn btn-danger">Delete</a>
-        <a class="btn btn-warning">Add to Cart</a></td>
+        <a href="/Product/Cart/@P.Id"class="btn btn-warning">Add to Cart</a></td>
 </tr>
     }
 </table>
