@@ -16,14 +16,35 @@ namespace Lab_Task___CRUD.Models.Tables
         }
         public void Create(Product p)
         {
-            string query = String.Format("Insert into Products values ('{name}','{price}','{quantity}','{description}')", p.Name, p.Price,
+            string query = String.Format
+
+            ("Insert INTO  Products values ('{0}','{1}','{2}','{3}')", p.Name, p.Price, p.Quantity,
                 p.Description);
             SqlCommand cmd = new SqlCommand(query, conn);
             conn.Open();
             int r = cmd.ExecuteNonQuery();
             conn.Close();
         }
-        
+
+        public void Edit(Product p)
+        {
+            string query = String.Format("Update INTO Products values ('{0}','{1}','{2}','{3}')", p.Name, p.Price, p.Quantity,
+                p.Description + "where id ={0}", p.Id);
+            SqlCommand cmd = new SqlCommand(query, conn);
+            conn.Open();
+            int r = cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+        public void Delete(int id)
+        {
+            string query = String.Format("Delete from Products where id={0}", id);
+            SqlCommand cmd = new SqlCommand(query, conn);
+            conn.Open();
+            int r = cmd.ExecuteNonQuery();
+            conn.Close();
+        }
+
+
         public List<Product> GetAll()
         {
             string query = "select * from Products";
@@ -39,7 +60,7 @@ namespace Lab_Task___CRUD.Models.Tables
                     Name = reader.GetString(reader.GetOrdinal("name")),
                     Price = reader.GetInt32(reader.GetOrdinal("price")),
                     Quantity = reader.GetString(reader.GetOrdinal("quantity")),
-                    Description  = reader.GetString(reader.GetOrdinal("description")),
+                    Description = reader.GetString(reader.GetOrdinal("description")),
 
                 };
                 products.Add(p);
@@ -47,16 +68,16 @@ namespace Lab_Task___CRUD.Models.Tables
             conn.Close();
             return products;
         }
-        public Product Get(int id)
+        public Product GetProduct(int id)
         {
             conn.Open();
-            string query = String.Format("Select * from Students where Id={0}", id);
+            string query = String.Format("Select * from Products where Id={0}", id);
             SqlCommand cmd = new SqlCommand(query, conn);
             SqlDataReader reader = cmd.ExecuteReader();
-            Product p = null;
+            Product s = null;
             while (reader.Read())
             {
-                p = new Product()
+                s = new Product()
                 {
                     Id = reader.GetInt32(reader.GetOrdinal("id")),
                     Name = reader.GetString(reader.GetOrdinal("name")),
@@ -66,8 +87,8 @@ namespace Lab_Task___CRUD.Models.Tables
                 };
             }
             conn.Close();
-            return p;
-        }
+            return s;
 
+        }
     }
 }

@@ -1,10 +1,11 @@
-﻿
-@{
+﻿ @{
     ViewBag.Title = "List";
 }
 
 <h2>List</h2>
 <a href="/product/create" class="btn btn-primary">Add Product</a>
+<a href="/product/cart" class="btn btn-warning">Add Product</a>
+
 <table class="table table-bordered">
     <tr>
         <th>Id</th>
@@ -23,7 +24,8 @@
     <td>@P.Quantity</td>
     <td>@P.Description</td>
     <td><a href="/product/edit/@P.Id" class="btn btn-success">Edit</a>
-        <a class="btn btn-danger">Delete</a></td>
+        <a href="/Product/Delete/@P.Id"class="btn btn-danger">Delete</a>
+        <a class="btn btn-warning">Add to Cart</a></td>
 </tr>
     }
 </table>
